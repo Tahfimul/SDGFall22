@@ -1,0 +1,4 @@
+#Wed Sep 28 12:16:23 EDT 2022
+base.0=/home/cvql/Unity_Projects/TruckSafety/Temp/gradleOut/build/intermediates/transforms/dexMerger/release/0
+path.0=classes.dex
+renamed.0=classes.dex
