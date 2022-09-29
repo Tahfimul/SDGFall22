@@ -10,6 +10,8 @@ public class MovementControl : MonoBehaviour {
 
 	private float steer;
 	private float acceleration;
+	private bool isBraking;
+	public float maxBrakeForce;
 
 	void start()
 	{
@@ -78,6 +80,13 @@ public class MovementControl : MonoBehaviour {
 		{
 			Debug.Log("Resetting accelration");
 			acceleration=0f;
+			isBraking = true;
+			applyBraking();
+		}
+		else if(isBraking)
+		{
+			isBraking = false;
+			resetBraking();
 		}
 			
 		if(acceleration<1)
@@ -93,6 +102,13 @@ public class MovementControl : MonoBehaviour {
 		{
 			Debug.Log("Resetting Accelaration");
 			acceleration=0f;
+			isBraking = true;
+			applyBraking();
+		}
+		else if(isBraking)
+		{
+			isBraking = false;
+			resetBraking();
 		}
 
 		if(acceleration>-1)
@@ -100,5 +116,21 @@ public class MovementControl : MonoBehaviour {
 			acceleration-=0.089f;
 		}
 	} 
+
+	private void applyBraking()
+	{
+		foreach (var wheelCollider in wheelColliders)
+		{
+			wheelCollider.brakeTorque = maxBrakeForce;
+		}
+	}
+
+	private void resetBraking()
+	{
+		foreach (var wheelCollider in wheelColliders)
+		{
+			wheelCollider.brakeTorque = 0f;
+		}
+	}
 
 }
