@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class MovementControl : MonoBehaviour {
 	public WheelCollider[] wheelColliders = new WheelCollider[4];
@@ -13,6 +15,9 @@ public class MovementControl : MonoBehaviour {
 	private bool isBraking;
 	public float maxBrakeForce;
 
+	private int counter;
+	public UnityEvent onLongPress = new UnityEvent();
+	public int test;
 	void start()
 	{
 		m_rigidbody = GetComponent<Rigidbody>();
@@ -75,6 +80,9 @@ public class MovementControl : MonoBehaviour {
 
 	public void OnForward()
 	{
+		counter++;
+		Debug.Log("Moving Forward");
+		Debug.Log(counter);
 		//If truck was moving backward, set accelaration 0 to move forward
 		if(acceleration<0)
 		{
