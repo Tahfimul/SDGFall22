@@ -55,6 +55,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Backward_Long_Press.cs" />
+     <Compile Include="Assets\Scripts\Callback_System\CallbackEventSystem.cs" />
+     <Compile Include="Assets\Scripts\Callback_System\EventInfo.cs" />
+     <Compile Include="Assets\Scripts\Forward_Long_Press.cs" />
      <Compile Include="Assets\Truck_Low_Poly\Scripts\CameraFollow.cs" />
      <Compile Include="Assets\Truck_Low_Poly\Scripts\MovementControl.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />

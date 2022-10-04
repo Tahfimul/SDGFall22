@@ -294,5 +294,9 @@
 /define:UNITY_TEAM_LICENSE
 /define:CSHARP_7_OR_LATER
 /define:CSHARP_7_3_OR_NEWER
+"Assets/Scripts/Backward_Long_Press.cs"
+"Assets/Scripts/Callback_System/CallbackEventSystem.cs"
+"Assets/Scripts/Callback_System/EventInfo.cs"
+"Assets/Scripts/Forward_Long_Press.cs"
 "Assets/Truck_Low_Poly/Scripts/CameraFollow.cs"
 "Assets/Truck_Low_Poly/Scripts/MovementControl.cs"

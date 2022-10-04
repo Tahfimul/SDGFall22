@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
+
 public class MovementControl : MonoBehaviour {
 	public WheelCollider[] wheelColliders = new WheelCollider[4];
 	public Transform[] tyreMeshes = new Transform[4];
@@ -15,13 +16,18 @@ public class MovementControl : MonoBehaviour {
 	private bool isBraking;
 	public float maxBrakeForce;
 
-	private int counter;
-	public UnityEvent onLongPress = new UnityEvent();
-	public int test;
-	void start()
+	private bool goForward;
+	private bool goBackward;
+
+	void Start()
 	{
+		CallbackEventSystem.Current.RegisterListener<OnForwardPressEvent>(OnForwardEvent);
+		CallbackEventSystem.Current.RegisterListener<OnBackwardPressEvent>(OnBackwardEvent);
+		CallbackEventSystem.Current.RegisterListener<OnBackwardReleaseEvent>(OnBackwardREvent);
+		CallbackEventSystem.Current.RegisterListener<OnForwardReleaseEvent>(OnForwardREvent);
+		Debug.Log("Start Called on MovementConytrol");
 		m_rigidbody = GetComponent<Rigidbody>();
-		m_rigidbody.centerOfMass = centerOfMass.localPosition;
+		// m_rigidbody.centerOfMass = centerOfMass.localPosition;
 	}
 	
 	void Update()
@@ -30,7 +36,12 @@ public class MovementControl : MonoBehaviour {
 	}
 	
 	void FixedUpdate()
-	{// 0 is front left and 1 is front right
+	{
+		
+		Debug.Log("Fixed Update called from MovementControl");
+		Debug.Log(m_rigidbody);
+
+		// 0 is front left and 1 is front right
 		
 		float fixedAngel = steer * 45f;
 		wheelColliders [0].steerAngle = fixedAngel;
@@ -41,6 +52,17 @@ public class MovementControl : MonoBehaviour {
 		for (int i = 0; i < 4; i++) 
 		{
 			wheelColliders[i].motorTorque = acceleration * maxTorque;
+		}
+
+		if(goForward)
+		{
+			OnForward();
+		}
+
+		if(goBackward)
+		{
+			Debug.Log("Going backward");
+			OnBackward();
 		}
 	}
 	
@@ -80,9 +102,8 @@ public class MovementControl : MonoBehaviour {
 
 	public void OnForward()
 	{
-		counter++;
+		
 		Debug.Log("Moving Forward");
-		Debug.Log(counter);
 		//If truck was moving backward, set accelaration 0 to move forward
 		if(acceleration<0)
 		{
@@ -141,4 +162,29 @@ public class MovementControl : MonoBehaviour {
 		}
 	}
 
+	void OnForwardEvent(OnForwardPressEvent onForwardPressEvent)
+	{
+	
+		goForward = true;
+		
+	}
+
+	void OnBackwardEvent(OnBackwardPressEvent onBackwardPressEvent)
+	{	
+			
+		goBackward = true;	
+		
+	}
+
+	void OnForwardREvent(OnForwardReleaseEvent onForwardReleaseEvent)
+	{
+		Debug.Log("On Forward Release Event");
+		goForward = false;
+	}
+
+	void OnBackwardREvent(OnBackwardReleaseEvent onBackwardReleaseEvent)
+	{
+		Debug.Log("On Backward Release Event");
+		goBackward = false;
+	}
 }
