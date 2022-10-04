@@ -55,12 +55,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Backward_Long_Press.cs" />
      <Compile Include="Assets\Scripts\Callback_System\CallbackEventSystem.cs" />
      <Compile Include="Assets\Scripts\Callback_System\EventInfo.cs" />
-     <Compile Include="Assets\Scripts\Forward_Long_Press.cs" />
+     <Compile Include="Assets\Scripts\Right_Long_Press.cs" />
+     <Compile Include="Assets\Scripts\Truck_Scene\Backward_Long_Press.cs" />
+     <Compile Include="Assets\Scripts\Truck_Scene\Forward_Long_Press.cs" />
+     <Compile Include="Assets\Scripts\Truck_Scene\Left_Long_Press.cs" />
      <Compile Include="Assets\Truck_Low_Poly\Scripts\CameraFollow.cs" />
-     <Compile Include="Assets\Truck_Low_Poly\Scripts\MovementControl.cs" />
+     <Compile Include="Assets\Truck_Low_Poly\Scripts\TruckMovementControl.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />

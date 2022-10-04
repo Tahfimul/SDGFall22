@@ -4,7 +4,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 
-public class MovementControl : MonoBehaviour {
+public class TruckMovementControl : MonoBehaviour {
 	public WheelCollider[] wheelColliders = new WheelCollider[4];
 	public Transform[] tyreMeshes = new Transform[4];
 	public float maxTorque = 50.0f;
@@ -18,6 +18,8 @@ public class MovementControl : MonoBehaviour {
 
 	private bool goForward;
 	private bool goBackward;
+	private bool goRight;
+	private bool goLeft;
 
 	void Start()
 	{
@@ -25,6 +27,10 @@ public class MovementControl : MonoBehaviour {
 		CallbackEventSystem.Current.RegisterListener<OnBackwardPressEvent>(OnBackwardEvent);
 		CallbackEventSystem.Current.RegisterListener<OnBackwardReleaseEvent>(OnBackwardREvent);
 		CallbackEventSystem.Current.RegisterListener<OnForwardReleaseEvent>(OnForwardREvent);
+		CallbackEventSystem.Current.RegisterListener<OnRightPressEvent>(OnRightEvent);
+		CallbackEventSystem.Current.RegisterListener<OnRightReleaseEvent>(OnRightREvent);
+		CallbackEventSystem.Current.RegisterListener<OnLeftPressEvent>(OnLeftEvent);
+		CallbackEventSystem.Current.RegisterListener<OnLeftReleaseEvent>(OnLeftREvent);
 		Debug.Log("Start Called on MovementConytrol");
 		m_rigidbody = GetComponent<Rigidbody>();
 		// m_rigidbody.centerOfMass = centerOfMass.localPosition;
@@ -63,6 +69,18 @@ public class MovementControl : MonoBehaviour {
 		{
 			Debug.Log("Going backward");
 			OnBackward();
+		}
+
+		if(goRight)
+		{
+			Debug.Log("oing Right");
+			OnRight();
+		}
+
+		if(goLeft)
+		{
+			Debug.Log("Going Left");
+			OnLeft();
 		}
 	}
 	
@@ -164,6 +182,8 @@ public class MovementControl : MonoBehaviour {
 
 	void OnForwardEvent(OnForwardPressEvent onForwardPressEvent)
 	{
+
+		Debug.Log("On Forward Press Event from TruckMovementControl");
 	
 		goForward = true;
 		
@@ -186,5 +206,27 @@ public class MovementControl : MonoBehaviour {
 	{
 		Debug.Log("On Backward Release Event");
 		goBackward = false;
+	}
+
+	void OnRightEvent(OnRightPressEvent onRightPressEvent)
+	{
+		goRight = true;
+	}
+
+	void OnRightREvent(OnRightReleaseEvent onRightReleaseEvent)
+	{
+		goRight = false;
+		OnSteerReset();
+	}
+
+	void OnLeftEvent(OnLeftPressEvent onLeftPressEvent)
+	{
+		goLeft = true;
+	}
+
+	void OnLeftREvent(OnLeftReleaseEvent onLeftReleaseEvent)
+	{
+		goLeft = false;
+		OnSteerReset();
 	}
 }
