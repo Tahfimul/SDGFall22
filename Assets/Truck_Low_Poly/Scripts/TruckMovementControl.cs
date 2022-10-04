@@ -51,9 +51,7 @@ public class TruckMovementControl : MonoBehaviour {
 		
 		float fixedAngel = steer * 45f;
 		wheelColliders [0].steerAngle = fixedAngel;
-		wheelColliders [1].steerAngle = fixedAngel;
-
-		
+		wheelColliders [1].steerAngle = fixedAngel;		
 		
 		for (int i = 0; i < 4; i++) 
 		{
@@ -127,7 +125,6 @@ public class TruckMovementControl : MonoBehaviour {
 		{
 			Debug.Log("Resetting accelration");
 			acceleration=0f;
-			isBraking = true;
 			applyBraking();
 		}
 		else if(isBraking)
@@ -149,7 +146,6 @@ public class TruckMovementControl : MonoBehaviour {
 		{
 			Debug.Log("Resetting Accelaration");
 			acceleration=0f;
-			isBraking = true;
 			applyBraking();
 		}
 		else if(isBraking)
@@ -164,8 +160,9 @@ public class TruckMovementControl : MonoBehaviour {
 		}
 	} 
 
-	private void applyBraking()
+	public void applyBraking()
 	{
+		isBraking = true;
 		foreach (var wheelCollider in wheelColliders)
 		{
 			wheelCollider.brakeTorque = maxBrakeForce;
