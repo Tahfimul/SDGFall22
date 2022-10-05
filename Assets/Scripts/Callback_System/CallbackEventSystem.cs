@@ -54,7 +54,16 @@ public class CallbackEventSystem : MonoBehaviour
     } 
     public void UnregisterListener<T>(System.Action<T> listener) where T : EventInfo
     {
-            // TODO
+            System.Type eventType = typeof(T);
+
+            if(eventListeners == null || eventListeners.ContainsKey(eventType)==false || eventListeners[eventType] == null)
+            {
+                return;
+            }
+
+            EventListener wrapper = (eventInfo) => {listener((T) eventInfo);};
+
+            eventListeners[eventType].Remove(wrapper);
     }
 
     public void FireEvent(EventInfo eventInfo)

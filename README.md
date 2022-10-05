@@ -77,29 +77,68 @@ Below are descriptions of major parts of the Source code:
   FixedUpdate is part of Unity's MonoBehavior class and is called in a specified order. To learn more about this function, see the following links: </br>
      * [https://docs.unity3d.com/Manual/ExecutionOrder.html](https://docs.unity3d.com/Manual/ExecutionOrder.html)</br>
      * [https://docs.unity3d.com/ScriptReference/MonoBehaviour.FixedUpdate.html](https://docs.unity3d.com/ScriptReference/MonoBehaviour.FixedUpdate.html)</br>
-* Assets -> Scripts -> Truck_Scene -> Backward_Long_Press.cs
+* Assets -> Scripts -> Manuver -> Backward_Long_Press.cs
   </br>
-  Description: This script is responsible for listening to the onLongPress and onPressRelease events from the Backward button on the Truck Driving Scene. The Backward button is intended to move the truck back. 
+  Description: This script is responsible for listening to the onLongPress and onPressRelease events from the Backward button on the Truck Driving Scene. The Backward button is intended to move the truck back.</br>
 
-* Assets -> Scripts -> Truck_Scene -> Forward_Long_Press.cs
+  Below are descriptions of the functions that are part of this file:</br>
+
+  * OnPointerDown() - invoked when backward button is pressed. Fires a onBackwardPressEvent to the callback system.
+
+  * OnPointerUp() - invoked when backward button press is released. Fires a onBackwardReleaseEvent to the callback system. 
+
+* Assets -> Scripts -> Manuver -> Forward_Long_Press.cs
   </br>  
-  Description: This script is responsible for listening to the onLongPress and onPressRelease events from the Forward button on the Truck Driving Scene. The Forward button is intended to move the truck forward.
+  Description: This script is responsible for listening to the onLongPress and onPressRelease events from the Forward button on the Truck Driving Scene. The Forward button is intended to move the truck forward. </br>
 
-* Assets -> Scripts -> Truck_Scene -> Left_Long_Press.cs
+  Below are descriptions of the functions that are part of this file:</br>
+
+  * OnPointerDown() - invoked when forward button is pressed. Fires a onForwardPressEvent to the callback system.
+
+  * OnPointerUp() - invoked when forward button press is released. Fires a onForwardReleaseEvent to the callback system. 
+
+* Assets -> Scripts -> Manuver -> Left_Long_Press.cs
   </br>  
-  Description: This script is responsible for listening to the onLongPress and onPressRelease events from the Left button on the Truck Driving Scene. The Left button is intended to turn the truck left.
+  Description: This script is responsible for listening to the onLongPress and onPressRelease events from the Left button on the Truck Driving Scene. The Left button is intended to turn the truck left. </br>
 
-* Assets -> Scripts -> Truck_Scene -> Right_Long_Press.cs
+  Below are descriptions of the functions that are part of this file:</br>
+
+  * OnPointerDown() - invoked when left button is pressed. Fires a onLeftPressEvent to the callback system.
+
+  * OnPointerUp() - invoked when left button press is released. Fires a onLeftReleaseEvent to the callback system. 
+
+* Assets -> Scripts -> Manuver -> Right_Long_Press.cs
   </br>
-  Description: This script is responsible for listening to the onLongPress and onPressRelease events from the Right button on the Truck Driving Scene. The Right button is intended to turn the truck right.
+  Description: This script is responsible for listening to the onLongPress and onPressRelease events from the Right button on the Truck Driving Scene. The Right button is intended to turn the truck right.</br>
+
+  Below are descriptions of the functions that are part of this file:</br>
+
+  * OnPointerDown() - invoked when right button is pressed. Fires a onRightPressEvent to the callback system.
+
+  * OnPointerUp() - invoked when right button press is released. Fires a onRightReleaseEvent to the callback system. 
 
 * Assets -> Scripts -> Callback_System -> CallbackEventSystem.cs
   </br>  
-  Description: This script is responsible for managing callback functions for the OnLongPress and OnPressRelease events of the buttons: Forward Button, Backward Button, Right Button, and Left Button of the truck driving scene. 
+  Description: This script is responsible for managing callback functions for the OnLongPress and OnPressRelease events of the buttons: Forward Button, Backward Button, Right Button, and Left Button of the truck driving scene.</br>
+
+  Below are descriptions of the functions that are part of this file:</br>
+
+  * OnEnable() - sets __Current object to the current instance of the CallbackEventSystem class.
+
+  * Current - returns the __Current object. If __Current object is null, it sets __Current to the GameObject with the CallbackEventSystem script.
+
+  * EventListener(EventInfo ei) - is a delegate function, which means that it is able to hold on to another function as a reference. It is useful when storing listeners using RegisterListener(...) function.
+
+  * RegisterListener<T>(System.Action<T> listener) - stores an event listener so that it can be called when an event of that type is fired.
+
+  * UnregisterListener<T>(System.Action<T> listener) - removes an event listener so that it is no longer called.
+
+  * FireEvent(EventInfo eventInfo) - fires an event by checking to see all eventListeners for a particular EventInfo type and calling them all. If no eventlistener of a particular EventInfo type exists, then it does not call any event listener. 
+  
 
 * Assets -> Scripts -> Callback_System -> EventInfo.cs
   </br>  
-  Description: This script is responsible for defining the OnLongPress and OnPressRelease events for each of the following buttons: Forward, Backward, Right, Left of the truck driving scene.   
+  Description: This script is responsible for defining each type of OnLongPress and OnPressRelease events for each of the following buttons: Forward, Backward, Right, Left of the truck driving scene.   
 
 
 
