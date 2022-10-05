@@ -69,8 +69,14 @@ Below are descriptions of major parts of the Source code:
 
 * Assets -> Truck_Low_Poly -> Scripts -> CameraFollow.cs</br>
   
-  Description: This script is responsible to move the camera so that it follows the truck from the back.  
+  Description: This script is responsible to move the camera so that it follows the truck from the back.</br> 
 
+  Below are descriptions of the functions that are part of this file:</br> 
+
+  * FixedUpdate() - invoked "every fixed frame-rate frame." For the script that has been written, in FixedUpdate(),we position the camera to the amount of posSmoothing value between transform.position and player.position. We also, rotate the camera to the amount of rotSmoothing value angle between transform.rotation and player.rotation. Finally, we set x, z angles to 0 and only leave y angle unchanged.</br> 
+  FixedUpdate is part of Unity's MonoBehavior class and is called in a specified order. To learn more about this function, see the following links: </br>
+     * [https://docs.unity3d.com/Manual/ExecutionOrder.html](https://docs.unity3d.com/Manual/ExecutionOrder.html)</br>
+     * [https://docs.unity3d.com/ScriptReference/MonoBehaviour.FixedUpdate.html](https://docs.unity3d.com/ScriptReference/MonoBehaviour.FixedUpdate.html)</br>
 * Assets -> Scripts -> Truck_Scene -> Backward_Long_Press.cs
   </br>
   Description: This script is responsible for listening to the onLongPress and onPressRelease events from the Backward button on the Truck Driving Scene. The Backward button is intended to move the truck back. 
