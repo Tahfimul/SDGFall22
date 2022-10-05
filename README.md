@@ -25,10 +25,50 @@ Below are descriptions of major parts of the Source code:
 #### For the Truck Driving Scene
 
 * Assets -> Truck_Low_Poly -> Scripts -> TruckMovementControl.cs </br>
-  Description: This script is responsible for making the Truck move forward, backward, right, and left.  
+  Description: This script is responsible for making the Truck move forward, backward, right, and left. It stores 4 WheelColliders, 1 for each wheel of the truck. It stores 4 tyre meshes, 1 for each wheel of the truck.</br>
 
-* Assets -> Truck_Low_Poly -> Scripts -> CameraFollow.cs
-</br>
+  The WheelColliders are rotated when OnRightEvent or OnLeftEvent are invoked. The UpdateMeshesPosition function when invoked takes the WheelCollider rotation into account and rotates the tyremeshes.</br>
+
+  The script registers the following events: OnForwardPressEvent, OnBackwardPressEvent,OnBackwardReleaseEvent, OnForwardReleaseEvent, OnRightPressEvent, OnRightReleaseEvent, OnLeftPressEvent,OnLeftReleaseEvent, through the use of CallbackEventSystem manager.</br>
+
+  Below are descriptions of the functions that are part of this file:</br>
+
+  * FixedUpdate() - Responsible for setting the two front wheel colliders' steering angles of the truck. Also, sets the motor torque of all the wheel colliders of the truck. Also, keeps track of forward, backward, right, left events.
+
+  * UpdateMeshesPositions() - Sets the position and rotation of each tyremesh with respect to the current position and rotation of each WheelCollider.
+
+  * OnRight() - Increments steer variable by 0.05 and esures that the value of the steer is approximately no greater than 1. This steer value is used as a factor to calculate the angle of the front WheelColliders.
+
+  * OnLeft() - Decrements steer variable by 0.05 and esures that the value of the steer is approximately no less than -1. This steer value is used as a factor to calculate the angle of the front WheelColliders.
+
+  * OnSteerReset() - Resets the steer value to 0.
+
+  * OnForward() - Checks if car is moving backward. If so, it sets the accelaration to 0 and applies brakes on each WheelCollider. Otherwise, if brakes were previously applied, it sets isBreaking to false and calls resetBraking(). It also checks to see if accelaration is less than 1, if so, it increments accelaration by 0.089. The accelaration value is used as a factor to calculate the motorTorque of all the WheelColliders.
+
+  * OnBackward() - Checks if car is moving forward. If so, it sets the accelaration to 0 and applies brakes on each WheelCollider. Otherwise, if brakes were previously applied, it sets isBreaking to false and calls resetBraking(). It also checks to see if accelaration is greater than than -1, if so, it decrements accelaration by 0.089. The accelaration value is used as a factor to calculate the motorTorque of all the WheelColliders.
+
+  * ApplyBraking() - sets isBreaking to true. It applies brakeTorque of maxBrakeForce to each WheelCollider.
+
+  * ResetBraking() - sets isBraking to false. It applies brakeTorque of 0 to each WheelCollider.  
+
+  * OnForwardEvent() - invoked when OnForwardPressEvent is fired. Sets goForward to true.
+
+  * OnBackwardEvent() - invoked when OnBackwardPressEvent is fired. Sets goBackward to true.
+
+  * OnForwardREvent() - invoked when OnForwardReleaseEvent is fired. Sets goForward to false.
+
+  * OnBackwardREvent() - invoked when OnBackwardReleaseEvent is fired. Sets goBackward to false.
+
+  * OnRightEvent() - invoked when OnRightPressEvent is fired. Sets goRight to true.
+
+  * OnRightREvent() - invoked when OnRightReleaseEvent is fired. Sets goRight to false.
+
+  * OnLeftEvent() - invoked when OnLeftPressEvent is fired. Sets goLeft to true.
+
+  * OnLeftREvent() - invoked when OnLeftReleaseEvent is fired. Sets goLeft to false. 
+
+* Assets -> Truck_Low_Poly -> Scripts -> CameraFollow.cs</br>
+  
   Description: This script is responsible to move the camera so that it follows the truck from the back.  
 
 * Assets -> Scripts -> Truck_Scene -> Backward_Long_Press.cs

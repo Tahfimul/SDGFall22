@@ -8,8 +8,6 @@ public class TruckMovementControl : MonoBehaviour {
 	public WheelCollider[] wheelColliders = new WheelCollider[4];
 	public Transform[] tyreMeshes = new Transform[4];
 	public float maxTorque = 50.0f;
-	private Rigidbody m_rigidbody;
-	public Transform centerOfMass;
 
 	private float steer;
 	private float acceleration;
@@ -31,9 +29,7 @@ public class TruckMovementControl : MonoBehaviour {
 		CallbackEventSystem.Current.RegisterListener<OnRightReleaseEvent>(OnRightREvent);
 		CallbackEventSystem.Current.RegisterListener<OnLeftPressEvent>(OnLeftEvent);
 		CallbackEventSystem.Current.RegisterListener<OnLeftReleaseEvent>(OnLeftREvent);
-		Debug.Log("Start Called on MovementConytrol");
-		m_rigidbody = GetComponent<Rigidbody>();
-		// m_rigidbody.centerOfMass = centerOfMass.localPosition;
+		
 	}
 	
 	void Update()
@@ -43,15 +39,12 @@ public class TruckMovementControl : MonoBehaviour {
 	
 	void FixedUpdate()
 	{
-		
-		Debug.Log("Fixed Update called from MovementControl");
-		Debug.Log(m_rigidbody);
 
 		// 0 is front left and 1 is front right
 		
-		float fixedAngel = steer * 45f;
-		wheelColliders [0].steerAngle = fixedAngel;
-		wheelColliders [1].steerAngle = fixedAngel;		
+		float fixedAngle = steer * 45f;
+		wheelColliders [0].steerAngle = fixedAngle;
+		wheelColliders [1].steerAngle = fixedAngle;		
 		
 		for (int i = 0; i < 4; i++) 
 		{
@@ -65,19 +58,16 @@ public class TruckMovementControl : MonoBehaviour {
 
 		if(goBackward)
 		{
-			Debug.Log("Going backward");
 			OnBackward();
 		}
 
 		if(goRight)
 		{
-			Debug.Log("oing Right");
 			OnRight();
 		}
 
 		if(goLeft)
 		{
-			Debug.Log("Going Left");
 			OnLeft();
 		}
 	}
@@ -119,17 +109,14 @@ public class TruckMovementControl : MonoBehaviour {
 	public void OnForward()
 	{
 		
-		Debug.Log("Moving Forward");
 		//If truck was moving backward, set accelaration 0 to move forward
 		if(acceleration<0)
 		{
-			Debug.Log("Resetting accelration");
 			acceleration=0f;
 			applyBraking();
 		}
 		else if(isBraking)
-		{
-			isBraking = false;
+		{			
 			resetBraking();
 		}
 			
@@ -144,13 +131,11 @@ public class TruckMovementControl : MonoBehaviour {
 		//If truck was moving forward, set accelaration to 0 to move backward
 		if(acceleration>0)
 		{
-			Debug.Log("Resetting Accelaration");
 			acceleration=0f;
 			applyBraking();
 		}
 		else if(isBraking)
 		{
-			isBraking = false;
 			resetBraking();
 		}
 
@@ -171,6 +156,7 @@ public class TruckMovementControl : MonoBehaviour {
 
 	private void resetBraking()
 	{
+		isBraking = false;
 		foreach (var wheelCollider in wheelColliders)
 		{
 			wheelCollider.brakeTorque = 0f;
@@ -179,11 +165,7 @@ public class TruckMovementControl : MonoBehaviour {
 
 	void OnForwardEvent(OnForwardPressEvent onForwardPressEvent)
 	{
-
-		Debug.Log("On Forward Press Event from TruckMovementControl");
-	
 		goForward = true;
-		
 	}
 
 	void OnBackwardEvent(OnBackwardPressEvent onBackwardPressEvent)
@@ -195,13 +177,11 @@ public class TruckMovementControl : MonoBehaviour {
 
 	void OnForwardREvent(OnForwardReleaseEvent onForwardReleaseEvent)
 	{
-		Debug.Log("On Forward Release Event");
 		goForward = false;
 	}
 
 	void OnBackwardREvent(OnBackwardReleaseEvent onBackwardReleaseEvent)
 	{
-		Debug.Log("On Backward Release Event");
 		goBackward = false;
 	}
 
