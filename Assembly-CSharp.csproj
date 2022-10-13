@@ -57,10 +57,10 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Callback_System\CallbackEventSystem.cs" />
      <Compile Include="Assets\Scripts\Callback_System\EventInfo.cs" />
-     <Compile Include="Assets\Scripts\Truck_Scene\Backward_Long_Press.cs" />
-     <Compile Include="Assets\Scripts\Truck_Scene\Forward_Long_Press.cs" />
-     <Compile Include="Assets\Scripts\Truck_Scene\Left_Long_Press.cs" />
-     <Compile Include="Assets\Scripts\Truck_Scene\Right_Long_Press.cs" />
+     <Compile Include="Assets\Scripts\Manuver\Backward_Long_Press.cs" />
+     <Compile Include="Assets\Scripts\Manuver\Forward_Long_Press.cs" />
+     <Compile Include="Assets\Scripts\Manuver\Left_Long_Press.cs" />
+     <Compile Include="Assets\Scripts\Manuver\Right_Long_Press.cs" />
      <Compile Include="Assets\Truck_Low_Poly\Scripts\CameraFollow.cs" />
      <Compile Include="Assets\Truck_Low_Poly\Scripts\TruckMovementControl.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />

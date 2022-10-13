@@ -19,6 +19,12 @@ public class TruckMovementControl : MonoBehaviour {
 	private bool goRight;
 	private bool goLeft;
 
+
+	[Header("Sensors")]
+	public float sensorLength = 5f;
+	public float gapToFrontSensorZAxisPosition = 40f;
+	public float gapToFrontSensorYAxisPosition = 10f;
+	public float gapToFrontSensorXAxisPosition = 10f;
 	void Start()
 	{
 		CallbackEventSystem.Current.RegisterListener<OnForwardPressEvent>(OnForwardEvent);
@@ -70,6 +76,8 @@ public class TruckMovementControl : MonoBehaviour {
 		{
 			OnLeft();
 		}
+
+		Sensors();
 	}
 	
 	void UpdateMeshesPositions()
@@ -205,5 +213,57 @@ public class TruckMovementControl : MonoBehaviour {
 	{
 		goLeft = false;
 		OnSteerReset();
+	}
+
+	private void Sensors()
+	{
+		//Front center sensor
+		RaycastHit hit;
+		//transform.postion returns the approximate center 
+		//of the truck.
+		Vector3 sensorStartPos = transform.position;
+
+		//Since this sensor will be placed at the 
+		//front of the truck which is facing the z-axis
+		//and transform.position returns the approximate
+		//center of the truck, the starting position of
+		//the sensor for the front of the truck must be
+		//some gap away from the center of the truck
+		//on the z-axis
+		sensorStartPos.z += gapToFrontSensorZAxisPosition;
+		sensorStartPos.y += gapToFrontSensorYAxisPosition;
+
+		var ray = new Ray(sensorStartPos, this.transform.forward);
+
+		if(Physics.Raycast(ray, out hit, sensorLength))
+		{
+			Debug.DrawRay(sensorStartPos, transform.forward*hit.distance, Color.red);
+		}
+
+		//Front Center Right sensor
+		
+		sensorStartPos.x += gapToFrontSensorXAxisPosition;
+
+		ray = new Ray(sensorStartPos, this.transform.forward);
+
+		if(Physics.Raycast(ray, out hit, sensorLength))
+		{
+			Debug.DrawRay(sensorStartPos, transform.forward*hit.distance, Color.red);
+		}
+
+		//Front Center left sensor
+
+		sensorStartPos.x -= gapToFrontSensorXAxisPosition*2;
+
+
+		ray = new Ray(sensorStartPos, this.transform.forward);
+
+		if(Physics.Raycast(ray, out hit, sensorLength))
+		{
+			Debug.DrawRay(sensorStartPos, transform.forward*hit.distance, Color.red); 
+		}
+
+
+
 	}
 }
