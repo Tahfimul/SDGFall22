@@ -67,6 +67,8 @@ Below are descriptions of major parts of the Source code:
 
   * OnLeftREvent() - invoked when OnLeftReleaseEvent is fired. Sets goLeft to false. 
 
+  * Sensors() - takes care of all the truck sensors.
+
 * Assets -> Truck_Low_Poly -> Scripts -> CameraFollow.cs</br>
   
   Description: This script is responsible to move the camera so that it follows the truck from the back.</br> 
