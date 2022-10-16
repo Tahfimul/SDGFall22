@@ -6,7 +6,6 @@ public class CallbackEventSystem : MonoBehaviour
     static private CallbackEventSystem __Current;
     void OnEnable()
     {
-        Debug.Log("EventSystem OnEnable called");
 
         __Current = this;
         

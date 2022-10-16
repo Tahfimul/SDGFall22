@@ -63,6 +63,7 @@
      <Compile Include="Assets\Scripts\Manuver\Right_Long_Press.cs" />
      <Compile Include="Assets\Truck_Low_Poly\Scripts\CameraFollow.cs" />
      <Compile Include="Assets\Truck_Low_Poly\Scripts\TruckMovementControl.cs" />
+     <Compile Include="Assets\Truck_Low_Poly\Scripts\TruckSensorsManager.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />

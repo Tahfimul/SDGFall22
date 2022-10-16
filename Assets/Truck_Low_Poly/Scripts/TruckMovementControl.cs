@@ -22,9 +22,10 @@ public class TruckMovementControl : MonoBehaviour {
 
 	[Header("Sensors")]
 	public float sensorLength = 5f;
-	public float gapToFrontSensorZAxisPosition = 40f;
-	public float gapToFrontSensorYAxisPosition = 10f;
 	public float gapToFrontSensorXAxisPosition = 10f;
+	public float gapTestToFrontSensorZAxis = 20f;
+
+	public Vector3 gapToFrontSensor = new Vector3(0,10f,40f);
 	void Start()
 	{
 		CallbackEventSystem.Current.RegisterListener<OnForwardPressEvent>(OnForwardEvent);
@@ -221,7 +222,7 @@ public class TruckMovementControl : MonoBehaviour {
 		RaycastHit hit;
 		//transform.postion returns the approximate center 
 		//of the truck.
-		Vector3 sensorStartPos = transform.position;
+
 
 		//Since this sensor will be placed at the 
 		//front of the truck which is facing the z-axis
@@ -229,15 +230,22 @@ public class TruckMovementControl : MonoBehaviour {
 		//center of the truck, the starting position of
 		//the sensor for the front of the truck must be
 		//some gap away from the center of the truck
-		//on the z-axis
-		sensorStartPos.z += gapToFrontSensorZAxisPosition;
-		sensorStartPos.y += gapToFrontSensorYAxisPosition;
+		//on the z-axis and x-axis	
+		Vector3 sensorStartPos = transform.position + gapToFrontSensor;
 
 		var ray = new Ray(sensorStartPos, this.transform.forward);
 
 		if(Physics.Raycast(ray, out hit, sensorLength))
 		{
+
+			TruckSensorsManager.Current.reportDetection(SensorsTypes.FrontCenterSensor, hit.collider.gameObject.tag);
 			Debug.DrawRay(sensorStartPos, transform.forward*hit.distance, Color.red);
+			
+		}
+		else if(TruckSensorsManager.Current.isReported(SensorsTypes.FrontCenterSensor))
+		{
+			TruckSensorsManager.Current.unreportDetection(SensorsTypes.FrontCenterSensor);
+			
 		}
 
 		//Front Center Right sensor
@@ -248,7 +256,13 @@ public class TruckMovementControl : MonoBehaviour {
 
 		if(Physics.Raycast(ray, out hit, sensorLength))
 		{
+			TruckSensorsManager.Current.reportDetection(SensorsTypes.FrontCenterRightSensor, hit.collider.gameObject.tag);
 			Debug.DrawRay(sensorStartPos, transform.forward*hit.distance, Color.red);
+		}
+		else if(TruckSensorsManager.Current.isReported(SensorsTypes.FrontCenterRightSensor))
+		{
+			TruckSensorsManager.Current.unreportDetection(SensorsTypes.FrontCenterRightSensor);
+			
 		}
 
 		//Front Center left sensor
@@ -260,7 +274,13 @@ public class TruckMovementControl : MonoBehaviour {
 
 		if(Physics.Raycast(ray, out hit, sensorLength))
 		{
+			TruckSensorsManager.Current.reportDetection(SensorsTypes.FrontCenterLeftSensor, hit.collider.gameObject.tag);
 			Debug.DrawRay(sensorStartPos, transform.forward*hit.distance, Color.red); 
+		}
+		else if(TruckSensorsManager.Current.isReported(SensorsTypes.FrontCenterLeftSensor))
+		{
+			TruckSensorsManager.Current.unreportDetection(SensorsTypes.FrontCenterLeftSensor);
+			
 		}
 
 

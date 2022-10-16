@@ -3,7 +3,23 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - car_04
+  - car_01
+  - car_02
+  - car_03
+  - car_05
+  - car_06
+  - car_07
+  - car_08
+  - car_09
+  - bicycle_1
+  - bicycle_2
+  - bicycle_3
+  - bicycle_4
+  - bicycle_5
+  - bicycle_6
+  - bicycle_7
   layers:
   - Default
   - TransparentFX
