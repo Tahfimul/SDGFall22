@@ -230,8 +230,19 @@ public class TruckMovementControl : MonoBehaviour {
 		//center of the truck, the starting position of
 		//the sensor for the front of the truck must be
 		//some gap away from the center of the truck
-		//on the z-axis and x-axis	
-		Vector3 sensorStartPos = transform.position + gapToFrontSensor;
+		//on the z-axis and x-axis. We achieve this using
+		//the gapToFrontSensor Vector3 object
+		//adding (transform.forward*gapToFrontSensor.z) ensures that
+		//the sensor is pointing in the direction of the 
+		//z-axis of the truck
+		//adding (transform.up*gapToFrontSensor.y) ensures that
+		//the sensor height(in y-axis) is higher than being below the 
+		//truck on the y-axis
+		
+		Vector3 sensorStartPos = transform.position + (transform.forward*gapToFrontSensor.z);
+		sensorStartPos += transform.up * gapToFrontSensor.y;
+
+		Debug.Log(transform.up);
 
 		var ray = new Ray(sensorStartPos, this.transform.forward);
 
@@ -249,8 +260,7 @@ public class TruckMovementControl : MonoBehaviour {
 		}
 
 		//Front Center Right sensor
-		
-		sensorStartPos.x += gapToFrontSensorXAxisPosition;
+		sensorStartPos += transform.right * gapToFrontSensorXAxisPosition;
 
 		ray = new Ray(sensorStartPos, this.transform.forward);
 
@@ -267,7 +277,7 @@ public class TruckMovementControl : MonoBehaviour {
 
 		//Front Center left sensor
 
-		sensorStartPos.x -= gapToFrontSensorXAxisPosition*2;
+		sensorStartPos -= transform.right*gapToFrontSensorXAxisPosition*2;
 
 
 		ray = new Ray(sensorStartPos, this.transform.forward);
