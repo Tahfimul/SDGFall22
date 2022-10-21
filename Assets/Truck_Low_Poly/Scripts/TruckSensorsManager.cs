@@ -85,6 +85,14 @@ class TruckSensorsManager : MonoBehaviour
   public GameObject person_6;
   public GameObject person_7;
 
+  [Header("Obstacle Indicators")]
+  public GameObject obstacle_indicator_up;
+
+  public GameObject obstacle_indicator_right;
+
+  public GameObject obstacle_indicator_down;
+
+  public GameObject obstacle_indicator_left;
   public Material objectHighlightedMaterial;        
 //Run through each gameobject's gameobjects
   private Dictionary<SensorsTypes, List<string>> truckSensors = new Dictionary<SensorsTypes, List<string>>();  
@@ -94,6 +102,10 @@ class TruckSensorsManager : MonoBehaviour
   void OnEnable()
   {
     __Current = this;
+    obstacle_indicator_up.SetActive(false);
+    obstacle_indicator_right.SetActive(false);
+    obstacle_indicator_down.SetActive(false);
+    obstacle_indicator_left.SetActive(false);
   }
 
   void FixedUpdate()
@@ -101,6 +113,7 @@ class TruckSensorsManager : MonoBehaviour
 
     foreach(KeyValuePair<SensorsTypes, List<string>> sensor in truckSensors)
     {
+        
 
         foreach(string obj in sensor.Value)
         {
@@ -316,6 +329,25 @@ class TruckSensorsManager : MonoBehaviour
       {
         
         truckSensors[sensorsType].Add(obstacleTag);
+
+        if(sensorsType == SensorsTypes.FrontCenterSensor || sensorsType==SensorsTypes.FrontCenterRightSensor || sensorsType==SensorsTypes.FrontCenterLeftSensor)
+        {
+          obstacle_indicator_up.SetActive(true);
+        }
+        else if(sensorsType==SensorsTypes.RightFrontCenterSensor || sensorsType == SensorsTypes.RightFrontCenterRightSensor || sensorsType == SensorsTypes.RightFrontCenterLeftSensor || sensorsType == SensorsTypes.RightBackCenterSensor || sensorsType == SensorsTypes.RightBackCenterRightSensor || sensorsType == SensorsTypes.RightBackCenterLeftSensor)
+        {
+          obstacle_indicator_right.SetActive(true);
+        }
+        else if(sensorsType==SensorsTypes.BackCenterSensor || sensorsType==SensorsTypes.BackCenterRightSensor || sensorsType == SensorsTypes.BackCenterLeftSensor)
+        {
+          obstacle_indicator_down.SetActive(true);
+        }
+        else if(sensorsType==SensorsTypes.LeftFrontCenterSensor || sensorsType==SensorsTypes.LeftFrontCenterRightSensor || sensorsType==SensorsTypes.LeftFrontCenterLeftSensor || sensorsType == SensorsTypes.LeftBackCenterSensor || sensorsType==SensorsTypes.LeftBackCenterRightSensor || sensorsType == SensorsTypes.LeftBackCenterLeftSensor)
+        {
+          obstacle_indicator_left.SetActive(true);
+        }
+
+
      
       }
       
@@ -323,10 +355,28 @@ class TruckSensorsManager : MonoBehaviour
     
   }  
 
-  public void unreportDetection(SensorsTypes sensor)
+  public void unreportDetection(SensorsTypes sensorsType)
   {
     
-    foreach(string obj in truckSensors[sensor])
+    if(sensorsType == SensorsTypes.FrontCenterSensor || sensorsType==SensorsTypes.FrontCenterRightSensor || sensorsType==SensorsTypes.FrontCenterLeftSensor)
+    {
+      obstacle_indicator_up.SetActive(false);
+    }
+    else if(sensorsType==SensorsTypes.RightFrontCenterSensor || sensorsType == SensorsTypes.RightFrontCenterRightSensor || sensorsType == SensorsTypes.RightFrontCenterLeftSensor || sensorsType == SensorsTypes.RightBackCenterSensor || sensorsType == SensorsTypes.RightBackCenterRightSensor || sensorsType == SensorsTypes.RightBackCenterLeftSensor)
+    {
+      obstacle_indicator_right.SetActive(false);
+    }
+    else if(sensorsType==SensorsTypes.BackCenterSensor || sensorsType==SensorsTypes.BackCenterRightSensor || sensorsType == SensorsTypes.BackCenterLeftSensor)
+    {
+      obstacle_indicator_down.SetActive(false);
+    }
+    else if(sensorsType==SensorsTypes.LeftFrontCenterSensor || sensorsType==SensorsTypes.LeftFrontCenterRightSensor || sensorsType==SensorsTypes.LeftFrontCenterLeftSensor || sensorsType == SensorsTypes.LeftBackCenterSensor || sensorsType==SensorsTypes.LeftBackCenterRightSensor || sensorsType == SensorsTypes.LeftBackCenterLeftSensor)
+    {
+      obstacle_indicator_left.SetActive(false);
+    }
+
+    
+    foreach(string obj in truckSensors[sensorsType])
     {
           if(obj == ObjectTypes.bicycle_1.ToString())
           {
@@ -432,7 +482,7 @@ class TruckSensorsManager : MonoBehaviour
             changePersonMaterialToOrginal(person_7, ObjectTypes.person_7);
           }
     }
-    truckSensors[sensor].Clear();
+    truckSensors[sensorsType].Clear();
   }
   public bool isReported(SensorsTypes sensor)
   {
