@@ -43,7 +43,14 @@ enum ObjectTypes
   bicycle_4,
   bicycle_5,
   bicycle_6,
-  bicycle_7
+  bicycle_7,
+  person_1,
+  person_2,
+  person_3,
+  person_4,
+  person_5,
+  person_6,
+  person_7
 }
 
 class TruckSensorsManager : MonoBehaviour
@@ -68,6 +75,15 @@ class TruckSensorsManager : MonoBehaviour
   public GameObject bicycle_5;
   public GameObject bicycle_6;
   public GameObject bicycle_7;  
+
+  [Header("Persons")]
+  public GameObject person_1;
+  public GameObject person_2;
+  public GameObject person_3;
+  public GameObject person_4;
+  public GameObject person_5;
+  public GameObject person_6;
+  public GameObject person_7;
 
   public Material objectHighlightedMaterial;        
 //Run through each gameobject's gameobjects
@@ -156,7 +172,34 @@ class TruckSensorsManager : MonoBehaviour
           {
             changeCarMeterial(car_09, ObjectTypes.car_09);
           }
-
+          else if(obj == ObjectTypes.person_1.ToString())
+          {
+            changePersonMeterial(person_1, ObjectTypes.person_1);
+          } 
+          else if(obj == ObjectTypes.person_2.ToString())
+          {
+            changePersonMeterial(person_2, ObjectTypes.person_2);
+          }
+          else if(obj == ObjectTypes.person_3.ToString())
+          {
+            changePersonMeterial(person_3, ObjectTypes.person_3);
+          }
+          else if(obj == ObjectTypes.person_4.ToString())
+          {
+            changePersonMeterial(person_4, ObjectTypes.person_4);
+          }
+          else if(obj == ObjectTypes.person_5.ToString())
+          {
+            changePersonMeterial(person_5, ObjectTypes.person_5);
+          }
+          else if(obj == ObjectTypes.person_6.ToString())
+          {
+            changePersonMeterial(person_6, ObjectTypes.person_6);
+          }
+          else if(obj == ObjectTypes.person_7.ToString())
+          {
+            changePersonMeterial(person_7, ObjectTypes.person_7);
+          }
         }
     }
 
@@ -211,6 +254,39 @@ class TruckSensorsManager : MonoBehaviour
 
     car.GetComponent<MeshRenderer>().material = objectMaterials[objectType][0];
     
+  }
+
+   private void changePersonMeterial(GameObject person, ObjectTypes objectType)
+  {
+    //Create a dictionary to store each material so that 
+    //every object's material can be reset to its 
+    //original material when person no longer
+    //obstructs sensors
+
+    if(!objectMaterials.ContainsKey(objectType))
+    {
+      objectMaterials.Add(objectType, new List<UnityEngine.Material>());
+    }
+    foreach(Transform child in person.transform)
+    {
+        objectMaterials[objectType].Add(child.gameObject.GetComponent<SkinnedMeshRenderer>().material);
+        
+        child.gameObject.GetComponent<SkinnedMeshRenderer>().material = objectHighlightedMaterial;
+        
+        break;
+
+    }
+
+  }
+  private void changePersonMaterialToOrginal(GameObject person, ObjectTypes objectType)
+  {
+    int i =0;
+
+    foreach(Transform child in person.transform)
+    {
+      child.gameObject.GetComponent<SkinnedMeshRenderer>().material = objectMaterials[objectType][i];
+      break;
+    }
   }
 
   static public TruckSensorsManager Current {
@@ -326,6 +402,34 @@ class TruckSensorsManager : MonoBehaviour
           else if(obj == ObjectTypes.car_09.ToString())
           {            
             changeCarMaterialToOrginal(car_09, ObjectTypes.car_09);
+          }
+          else if(obj == ObjectTypes.person_1.ToString())
+          {            
+            changePersonMaterialToOrginal(person_1, ObjectTypes.person_1);
+          }
+          else if(obj == ObjectTypes.person_2.ToString())
+          {            
+            changePersonMaterialToOrginal(person_2, ObjectTypes.person_2);
+          }
+          else if(obj == ObjectTypes.person_3.ToString())
+          {            
+            changePersonMaterialToOrginal(person_3, ObjectTypes.person_3);
+          }
+          else if(obj == ObjectTypes.person_4.ToString())
+          {            
+            changePersonMaterialToOrginal(person_4, ObjectTypes.person_4);
+          }
+          else if(obj == ObjectTypes.person_5.ToString())
+          {            
+            changePersonMaterialToOrginal(person_5, ObjectTypes.person_5);
+          }
+          else if(obj == ObjectTypes.person_6.ToString())
+          {            
+            changePersonMaterialToOrginal(person_6, ObjectTypes.person_6);
+          }
+          else if(obj == ObjectTypes.person_7.ToString())
+          {            
+            changePersonMaterialToOrginal(person_7, ObjectTypes.person_7);
           }
     }
     truckSensors[sensor].Clear();

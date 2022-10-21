@@ -20,6 +20,13 @@ TagManager:
   - bicycle_5
   - bicycle_6
   - bicycle_7
+  - person_1
+  - person_2
+  - person_3
+  - person_4
+  - person_5
+  - person_6
+  - person_7
   layers:
   - Default
   - TransparentFX
