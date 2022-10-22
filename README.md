@@ -88,8 +88,7 @@ Below are descriptions of major parts of the Source code:
 
   * FixedUpdate() - This function is part of the MonoBehavior lifecycle. It iterates each sensor and checks to see the objects for which the sensors were reported for. If object(s) (Pedestrain, Car, or Bicycle) are found to be obstructing the sensors, their material is changed to a red objectHighlightedMaterial. 
 
-  * changeBicycleMaterial()
-  - This function changes each bicycle mesh material to red material. It also stores each original mesh material so that it can be restored to the bicycle later.
+  * changeBicycleMaterial() - This function changes each bicycle mesh material to red material. It also stores each original mesh material so that it can be restored to the bicycle later.
 
   * changeBicycleMaterialToOrginal() - This function changes each bicycle mesh material to the original material.
 
