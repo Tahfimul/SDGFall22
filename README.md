@@ -33,7 +33,7 @@ Below are descriptions of major parts of the Source code:
 
   Below are descriptions of the functions that are part of this file:</br>
 
-  * FixedUpdate() - Responsible for setting the two front wheel colliders' steering angles of the truck. Also, sets the motor torque of all the wheel colliders of the truck. Also, keeps track of forward, backward, right, left events.
+  * FixedUpdate() - Responsible for setting the two front wheel colliders' steering angles of the truck. Also, sets the motor torque of all the wheel colliders of the truck. Also, keeps track of forward, backward, right, left events. Also keeps track of the sensors that are on all sides of the truck.
 
   * UpdateMeshesPositions() - Sets the position and rotation of each tyremesh with respect to the current position and rotation of each WheelCollider.
 
@@ -67,7 +67,7 @@ Below are descriptions of major parts of the Source code:
 
   * OnLeftREvent() - invoked when OnLeftReleaseEvent is fired. Sets goLeft to false. 
 
-  * Sensors() - takes care of all the truck sensors.
+  * Sensors() - takes care of all the truck sensors. Ensures when each sensor is obstructed by an obstacle to report it to the TruckSensorsManager and to unreport any sensor that is no longer obstructed by an obstacle.
 
 * Assets -> Truck_Low_Poly -> Scripts -> CameraFollow.cs</br>
   
@@ -79,6 +79,36 @@ Below are descriptions of major parts of the Source code:
   FixedUpdate is part of Unity's MonoBehavior class and is called in a specified order. To learn more about this function, see the following links: </br>
      * [https://docs.unity3d.com/Manual/ExecutionOrder.html](https://docs.unity3d.com/Manual/ExecutionOrder.html)</br>
      * [https://docs.unity3d.com/ScriptReference/MonoBehaviour.FixedUpdate.html](https://docs.unity3d.com/ScriptReference/MonoBehaviour.FixedUpdate.html)</br>
+* Assets -> Truck_Low_Poly -> Scripts -> TruckSensorsManager.cs</br>     
+  Description: Responsible for managing each truck sensor. Ensures that when reported of a case of sensor being obstructed by an obstacle to highlight the obstacle in red and return material of obstacle to its original material when sensor(s) is/are unreported.</br>
+
+  Below are descriptions of the functions that are part of this file:</br>
+
+  * OnEnable() - This function is part of the MonoBehavior lifecycle. Inside it, the __Current object is initialzied and the obstacle indicators are hidden.
+
+  * FixedUpdate() - This function is part of the MonoBehavior lifecycle. It iterates each sensor and checks to see the objects for which the sensors were reported for. If object(s) (Pedestrain, Car, or Bicycle) are found to be obstructing the sensors, their material is changed to a red objectHighlightedMaterial. 
+
+  * changeBicycleMaterial()
+  - This function changes each bicycle mesh material to red material. It also stores each original mesh material so that it can be restored to the bicycle later.
+
+  * changeBicycleMaterialToOrginal() - This function changes each bicycle mesh material to the original material.
+
+  * changeCarMaterial() - changes the one and only mash material of the car to red material. It also stores the original mesh material so that it can be restored to the car later.
+
+  * changeCarMaterialToOriginal() - changes the car material to its original material.
+
+  * changePersonMaterial() - This function changes the layer Skinned Mesh Renderer material to a red material of a person. It also stores the original material of a person in a dictionary.
+
+  * changePersonMaterialToOrginal() - This function changes a person material to it original material.
+
+  * Current - this object return an instance of TruckSensorsManager.
+
+  * reportDetection() - this function stores a reported sensor detection to a dictionary so that the object stored can be highlighted with the red material. It also sets the indicators so that user can be alerted which of which direction the sensors have detected the objects.
+
+  * unreportDetection() - resets the indicators (that indicate which direction the sensors have detected obstacles) so that they are nno longer visible. It also takes a look at the sensor that has been called to be unreported and resets each potential obstacle(s) that were detected to their original material(s).
+
+  * isReported() - returns a boolean value on whether a given sensor has been reported for object(s) that it potentially detected. 
+
 * Assets -> Scripts -> Manuver -> Backward_Long_Press.cs
   </br>
   Description: This script is responsible for listening to the onLongPress and onPressRelease events from the Backward button on the Truck Driving Scene. The Backward button is intended to move the truck back.</br>
