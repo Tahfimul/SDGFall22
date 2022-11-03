@@ -27,6 +27,17 @@ TagManager:
   - person_5
   - person_6
   - person_7
+  - CargoTruck
+  - YellowTanker
+  - Tanker
+  - Dumper
+  - Dumper_2
+  - YellowTanker_2
+  - CargoTruck_2
+  - Tanker_2
+  - Dumper_3
+  - CarTruck_3
+  - YellowTanker_3
   layers:
   - Default
   - TransparentFX

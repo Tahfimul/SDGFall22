@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using System.Linq;
-enum SensorsTypes 
+public enum SensorsTypes 
 {
   FrontCenterSensor,
   FrontCenterRightSensor,

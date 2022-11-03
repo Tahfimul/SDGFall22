@@ -55,8 +55,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Main_Scene.cs" />
      <Compile Include="Assets\Scripts\Callback_System\CallbackEventSystem.cs" />
      <Compile Include="Assets\Scripts\Callback_System\EventInfo.cs" />
+     <Compile Include="Assets\Scripts\Car\CargoTruck.cs" />
+     <Compile Include="Assets\Scripts\Car\CargoTruck_2.cs" />
+     <Compile Include="Assets\Scripts\Car\CargoTruck_3.cs" />
+     <Compile Include="Assets\Scripts\Car\CarMovement.cs" />
+     <Compile Include="Assets\Scripts\Car\CarSensorsManager.cs" />
+     <Compile Include="Assets\Scripts\Car\Dumper.cs" />
+     <Compile Include="Assets\Scripts\Car\Dumper_2.cs" />
+     <Compile Include="Assets\Scripts\Car\Dumper_3.cs" />
+     <Compile Include="Assets\Scripts\Car\Tanker.cs" />
+     <Compile Include="Assets\Scripts\Car\Tanker_2.cs" />
+     <Compile Include="Assets\Scripts\Car\YellowTanker.cs" />
+     <Compile Include="Assets\Scripts\Car\YellowTanker_2.cs" />
+     <Compile Include="Assets\Scripts\Car\YellowTanker_3.cs" />
      <Compile Include="Assets\Scripts\Manuver\Backward_Long_Press.cs" />
      <Compile Include="Assets\Scripts\Manuver\Forward_Long_Press.cs" />
      <Compile Include="Assets\Scripts\Manuver\Left_Long_Press.cs" />

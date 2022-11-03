@@ -51,16 +51,8 @@ public class TruckMovementControl : MonoBehaviour {
 	{
 
 		// 0 is front left and 1 is front right
+		updateWheelColliders();
 		
-		float fixedAngle = steer * 45f;
-		wheelColliders [0].steerAngle = fixedAngle;
-		wheelColliders [1].steerAngle = fixedAngle;		
-		
-		for (int i = 0; i < 4; i++) 
-		{
-			wheelColliders[i].motorTorque = acceleration * maxTorque;
-		}
-
 		if(goForward)
 		{
 			OnForward();
@@ -82,6 +74,19 @@ public class TruckMovementControl : MonoBehaviour {
 		}
 
 		Sensors();
+	}
+
+	void updateWheelColliders()
+	{
+		float fixedAngle = steer * 45f;
+		wheelColliders [0].steerAngle = fixedAngle;
+		wheelColliders [1].steerAngle = fixedAngle;		
+		
+		for (int i = 0; i < 4; i++) 
+		{
+			wheelColliders[i].motorTorque = acceleration * maxTorque;
+		}
+
 	}
 	
 	void UpdateMeshesPositions()
@@ -659,7 +664,7 @@ public class TruckMovementControl : MonoBehaviour {
 			Debug.DrawRay(backSensorsStartPos, -transform.forward*sensorLength, Color.green);
 		}
 
-		//Back Center Left Center
+		//Back Center Left Sensor
 		backSensorsStartPos -= transform.right*(gapToBackSensors.x*2);
 
 		backSensorsRay = new Ray(backSensorsStartPos, -transform.forward);

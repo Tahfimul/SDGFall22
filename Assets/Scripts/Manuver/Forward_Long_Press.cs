@@ -15,7 +15,6 @@ public class Forward_Long_Press : MonoBehaviour, IPointerDownHandler, IPointerUp
         Debug.Log(CallbackEventSystem.Current);
 
         CallbackEventSystem.Current.FireEvent(onForwardPressEvent);
-        Debug.Log("Pointer Down Event");
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -23,9 +22,6 @@ public class Forward_Long_Press : MonoBehaviour, IPointerDownHandler, IPointerUp
         OnForwardReleaseEvent onForwardReleaseEvent = new OnForwardReleaseEvent();
 
         CallbackEventSystem.Current.FireEvent(onForwardReleaseEvent);
-
-        Debug.Log("Pointer Up Event");
-
     }
 
     // Update is called once per frame
