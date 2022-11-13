@@ -21,7 +21,7 @@ public class CarSensorsManager : MonoBehaviour
 {
     public GameObject car;
     public Material carHighlightedMaterial;
-    private List<UnityEngine.Material> car_original_materials = new List<UnityEngine.Material>();
+    private List<UnityEngine.Material> car_original_material = new List<UnityEngine.Material>();
     static private CarSensorsManager __Current;
     private Dictionary<Truck, List<SensorsTypes>> activeSensors = new Dictionary<Truck, List<SensorsTypes>>();
 
@@ -35,6 +35,10 @@ public class CarSensorsManager : MonoBehaviour
                 Debug.Log("Sensor(s) is/are obstructed");
                 changeCarMaterial();
 
+            }
+            else
+            {
+                changeCarMaterialToOriginal();
             }
             
         }
@@ -55,20 +59,27 @@ public class CarSensorsManager : MonoBehaviour
 
     private void changeCarMaterial()
     {
-        int i=0;
+        Debug.Log("Changing Car Material");
+        Debug.Log(car);
         foreach(Transform child in car.transform)
         {
-            if(i==2)
-            {
-              foreach(Transform c in child.transform)
-              {
-                   c.gameObject.GetComponent<Renderer>().material = carHighlightedMaterial;     
-                
-              }
-              break;
-            }
+            Debug.Log("Changing Car Material Child");
+            car_original_material.Add(child.gameObject.GetComponent<Renderer>().material);
+            child.gameObject.GetComponent<Renderer>().material = carHighlightedMaterial;
+            
 
-            i++;
+            break;
+        }
+    }
+
+    private void changeCarMaterialToOriginal()
+    {
+        Debug.Log("Changing Car Material to original");
+        foreach(Transform child in car.transform)
+        {
+            child.gameObject.GetComponent<Renderer>().material = car_original_material[0];
+
+            break;
         }
     }
 

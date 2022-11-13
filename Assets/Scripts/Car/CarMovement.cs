@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class CarMovement : MonoBehaviour
 {
    public WheelCollider[] wheelColliders = new WheelCollider[4];
@@ -20,6 +20,8 @@ public class CarMovement : MonoBehaviour
 
    private float steer;
    private float acceleration;
+   private bool isBraking;
+
    void Start()
    {
       CallbackEventSystem.Current.RegisterListener<OnForwardPressEvent>(OnForwardEvent);
@@ -34,13 +36,22 @@ public class CarMovement : MonoBehaviour
 
    void Update()
    {
-	UpdateMeshesPositions();
+	// UpdateMeshesPositions();	
    }
 
    void FixedUpdate()
    {
 		updateWheelColliders();
-		// UpdateMeshesPositions(); 
+		UpdateMeshesPositions(); 
+		if(goForward)
+		{
+			OnForward();
+		}
+
+		if(goBackward)
+		{
+			OnBackward();
+		}
 		if(goRight)
 		{
 			OnRight();
@@ -50,6 +61,7 @@ public class CarMovement : MonoBehaviour
 		{
 			OnLeft();
 		}
+
 
    }
 
@@ -61,6 +73,8 @@ public class CarMovement : MonoBehaviour
 		
 		for (int i = 0; i < 4; i++) 
 		{
+			Debug.Log("Car Acceleration: ");
+			Debug.Log(acceleration);
 			wheelColliders[i].motorTorque = acceleration * maxTorque;
 		}
 
@@ -76,13 +90,19 @@ public class CarMovement : MonoBehaviour
 
 
 			tyreMeshes[i].position = pos;
-			// Debug.Log(quat);
+			// Note: not setting tyremeshes rotation value provided by
+			// GetWorldPose because doing so leads the wheelMeshes being
+			// turned 90 degrees and wheelMeshes not being able to turn
+			// along with wheelCollider 
 			// tyreMeshes[i].rotation = quat;
 		}
-		Quaternion wheelCollider_0_quat = new Quaternion(0, wheelColliders[0].steerAngle, 0, 0);
-		Quaternion wheelCollider_1_quat = new Quaternion(0, wheelColliders[1].steerAngle, 0, 0);  
-		tyreMeshes[0].rotation = wheelCollider_0_quat;
-		tyreMeshes[1].rotation = wheelCollider_1_quat;
+
+		//To ensure that front left tyreMesh rotates along with wheelCollider
+		tyreMeshes[0].localEulerAngles = new Vector3(tyreMeshes[0].localEulerAngles.x, wheelColliders[0].steerAngle - tyreMeshes[0].localEulerAngles.z, tyreMeshes[0].localEulerAngles.z);
+		
+		//To ensure that front right tyreMesh rotates along with wheelCollider
+		tyreMeshes[1].localEulerAngles = new Vector3(tyreMeshes[1].localEulerAngles.x, wheelColliders[1].steerAngle - tyreMeshes[1].localEulerAngles.z, tyreMeshes[1].localEulerAngles.z);
+	
 	}
 	public void OnRight()
 	{
@@ -101,8 +121,67 @@ public class CarMovement : MonoBehaviour
 		}
 	}
 
+	public void OnForward()
+	{
+		
+		//If truck was moving backward, set accelaration 0 to move forward
+		if(acceleration<0)
+		{
+			acceleration=0f;
+			applyBraking();
+		}
+		else if(isBraking)
+		{			
+			resetBraking();
+		}
+			
+		if(acceleration<1)
+		{
+			acceleration += 0.089f;
+		}
+	}
+
+	public void OnBackward()
+	{
+		//If truck was moving forward, set accelaration to 0 to move backward
+		if(acceleration>0)
+		{
+			acceleration=0f;
+			applyBraking();
+		}
+		else if(isBraking)
+		{
+			resetBraking();
+		}
+
+		if(acceleration>-1)
+		{
+			acceleration-=0.089f;
+		}
+	} 
+
+	public void applyBraking()
+	{
+		isBraking = true;
+		foreach (var wheelCollider in wheelColliders)
+		{
+			wheelCollider.brakeTorque = maxBrakeForce;
+		}
+	}
+
+	private void resetBraking()
+	{
+		isBraking = false;
+		foreach (var wheelCollider in wheelColliders)
+		{
+			wheelCollider.brakeTorque = 0f;
+		}
+	}
+
+
    void OnForwardEvent(OnForwardPressEvent onForwardPressEvent)
 	{
+		Debug.Log("On Forward Car Event");
 		goForward = true;
 	}
 
@@ -148,7 +227,13 @@ public class CarMovement : MonoBehaviour
    public void OnSteerReset()
 	{
 		steer = 0f;
+		UpdateMeshesPositions();
 	}
+
+   public void ExitScene()
+   {
+		SceneManager.LoadScene("Main_Scene");
+   }
 
 
 }

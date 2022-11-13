@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
-
+using UnityEngine.SceneManagement;
 
 public class TruckMovementControl : MonoBehaviour {
 	public WheelCollider[] wheelColliders = new WheelCollider[4];
@@ -44,7 +44,7 @@ public class TruckMovementControl : MonoBehaviour {
 	
 	void Update()
 	{
-		UpdateMeshesPositions ();
+		UpdateMeshesPositions();
 	}
 	
 	void FixedUpdate()
@@ -687,4 +687,10 @@ public class TruckMovementControl : MonoBehaviour {
 
 
 	}
+	
+	public void ExitScene()
+	{
+		SceneManager.LoadScene("Main_Scene");
+	}
+
 }
