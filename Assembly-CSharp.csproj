@@ -77,6 +77,20 @@
      <Compile Include="Assets\Scripts\Manuver\Forward_Long_Press.cs" />
      <Compile Include="Assets\Scripts\Manuver\Left_Long_Press.cs" />
      <Compile Include="Assets\Scripts\Manuver\Right_Long_Press.cs" />
+     <Compile Include="Assets\Scripts\Pedestrian\Cargo_Truck.cs" />
+     <Compile Include="Assets\Scripts\Pedestrian\Cargo_Truck_2.cs" />
+     <Compile Include="Assets\Scripts\Pedestrian\Cargo_Truck_3.cs" />
+     <Compile Include="Assets\Scripts\Pedestrian\Dumper_.cs" />
+     <Compile Include="Assets\Scripts\Pedestrian\Dumper_2_.cs" />
+     <Compile Include="Assets\Scripts\Pedestrian\Dumper_3_.cs" />
+     <Compile Include="Assets\Scripts\Pedestrian\Pedestrian_Movement.cs" />
+     <Compile Include="Assets\Scripts\Pedestrian\PedestrianSensorsManager.cs" />
+     <Compile Include="Assets\Scripts\Pedestrian\Tanker_.cs" />
+     <Compile Include="Assets\Scripts\Pedestrian\Tanker_2_.cs" />
+     <Compile Include="Assets\Scripts\Pedestrian\Yellow_Tanker.cs" />
+     <Compile Include="Assets\Scripts\Pedestrian\Yellow_Tanker_2.cs" />
+     <Compile Include="Assets\Scripts\Pedestrian\Yellow_Tanker_3.cs" />
+     <Compile Include="Assets\Scripts\ThirdPersonMovement.cs" />
      <Compile Include="Assets\Truck_Low_Poly\Scripts\TruckMovementControl.cs" />
      <Compile Include="Assets\Truck_Low_Poly\Scripts\TruckSensorsManager.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
@@ -102,6 +116,9 @@
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>/home/cvql/Unity_Projects/TruckSafety/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
+ <Reference Include="Cinemachine">
+ <HintPath>/home/cvql/Unity_Projects/TruckSafety/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>/home/cvql/Unity_Projects/TruckSafety/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
@@ -113,6 +130,9 @@
  </Reference>
  <Reference Include="Unity.CollabProxy.Editor">
  <HintPath>/home/cvql/Unity_Projects/TruckSafety/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="com.unity.cinemachine.editor">
+ <HintPath>/home/cvql/Unity_Projects/TruckSafety/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
  <HintPath>/home/cvql/Unity_Projects/TruckSafety/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
@@ -305,6 +325,9 @@
  </Reference>
  <Reference Include="Unity.Analytics.StandardEvents">
  <HintPath>/home/cvql/Unity_Projects/TruckSafety/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
+ </Reference>
+ <Reference Include="clipper_library">
+ <HintPath>/home/cvql/Unity_Projects/TruckSafety/Library/PackageCache/com.unity.cinemachine@2.7.9/Runtime/ThirdParty/clipper_library.dll</HintPath>
  </Reference>
  <Reference Include="netstandard">
  <HintPath>/home/cvql/Unity/Hub/Editor/2019.1.1f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
